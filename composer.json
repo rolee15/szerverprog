@@ -1,0 +1,7 @@
+{
+    "name": "parraai/gyak1",
+    "type": "project",
+    "require": {
+        "alrik11es/cowsayphp": "^1.2"
+    }
+}
