@@ -16,26 +16,28 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $users = collect();
-        for ($i=1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $user = User::factory()->create([
                 'email' => 'user' . $i . '@server.com'
             ]);
 
-            $users -> add($user);
+            $users->add($user);
         }
 
         $posts = collect();
-        for ($i=1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $post = Post::factory()->create([
-                'user_id' => $users -> random()
+                'user_id' => $users->random()
             ]);
 
-            $posts -> add($post);
+            $posts->add($post);
         }
 
-        for ($i=1; $i <= 5; $i++) {
-            $tag = Tag::factory() -> create();
-            // TODO: N-N kapcsolat
+        for ($i = 1; $i <= 5; $i++) {
+            $tag = Tag::factory()->create();
+            $tag->posts()->sync(
+                ($posts -> random(rand(1, $posts -> count()))) -> pluck('id')
+            );
         }
     }
 }
